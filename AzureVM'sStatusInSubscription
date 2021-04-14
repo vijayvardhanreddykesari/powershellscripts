@@ -1,0 +1,8 @@
+Connect-AzureRmAccount
+Get-AzureRmSubscription
+Select-AzureRmSubscription -SubscriptionName GZ-LT-IT-71-TDM
+#For LT use SubscriptionName GZ-LT-IT-71-TDM
+#For NP use SubscriptionName GZ-NP-IT-71-TDM
+#For PD use SubscriptionName GZ-PD-IT-10
+Get-AzureRmVM -Status | Select-Object ResourceGroupName,Name,Location, @{ label = “VMStatus”; Expression = { $_.PowerState } },@{Name="VmSize"; Expression={$_.ToPSVirtualMachine().HardwareProfile.VmSize}}`
+| Export-Csv "C:\Temp\PowerShellScriptFiles\AzureVMs.csv" -Force -NoTypeInformation
