@@ -1,0 +1,9 @@
+Get-Module -ListAvailable
+#Script01
+Get-AdGroupMember -identity "ENT-LSA-TDM-AZURE-NP-USER" -Server "geicoddc.net" | Select name, SamAccountName | Export-Csv "C:\Temp\PowerShellScriptFiles\ADgroup.csv" -NoTypeInformation
+#Script02 - preferred one if we have multiple groups to check
+#the script renames the file with the group name
+$name = Read-Host "Enter Group Name"
+Get-ADGroupMember -identity "$name" -Server "geicoddc.net" -Recursive |select name, SamAccountName| export-csv -path "C:\Temp\PowerShellScriptFiles\TestFile.csv" -NoTypeInformation
+rename-item "C:\Temp\PowerShellScriptFiles\TestFile.csv" $name
+Dir C:\Temp\PowerShellScriptFiles\ | Rename-Item -newname {$_.name + '.csv'}
