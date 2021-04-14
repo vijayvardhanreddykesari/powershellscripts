@@ -1,0 +1,4 @@
+get-childitem -Path "F:\CAPOC\batch_execution\copy" |
+where-object {$_.LastWriteTime -lt (get-date).AddDays(-5)} |
+move-item -destination "F:\ArchivedLogs\dotNET\Copy"
+Write-Output 
